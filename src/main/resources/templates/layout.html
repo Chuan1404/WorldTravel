@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+</head>
+<body>
+    <header th:replace="~{fragments/header}"></header>
+
+    <div class="content-wrapper" layout:fragment="content">
+        Content is Here!
+    </div>
+
+    <footer th:replace="~{fragments/footer}"></footer>
+</body>
+
+</html>
