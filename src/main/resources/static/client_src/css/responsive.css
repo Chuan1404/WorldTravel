@@ -1,0 +1,112 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+ .main-header-area {
+ height: 70px;
+}
+}
+@media only screen and (max-width: 767px) {
+ .main-header-area {
+ height: 70px;
+}
+ .TravelGo-category-list-img {
+ left: 0 !important;
+ top: 0 !important;
+}
+.listing-item, .hotelsamilar .listroBox {
+ margin: 30px 15px 0 15px !important;
+}
+}
+ @media only screen and (min-width: 768px) and (max-width: 991px) {
+ .main-header-area .getfund-navbar {
+ height: 70px;
+}
+}
+@media only screen and (max-width: 767px) {
+ .main-header-area .getfund-navbar {
+ height: 70px;
+ padding: 0.5em 0;
+}
+}
+ @media only screen and (max-width: 991px) {
+ .main-header-area .getfundnav ul li a {
+ color: #fff;
+}
+.form-group {
+ margin-bottom: 10px;
+}
+}
+ @media only screen and (min-width: 992px) and (max-width: 1199px) {
+ .main-header-area .nav-brand {
+ margin-right: 0;
+}
+}
+ @media only screen and (min-width: 768px) and (max-width: 991px) {
+ .is-sticky .main-header-area {
+ height: 70px;
+}
+ .light .getfundnav ul li .dropdown, .light .getfundnav ul li .megamenu, .light.breakpoint-on .getfundnav > ul > li > a, .light.breakpoint-on .getfund-navbar .getfund-menu {
+ background-color: #000000;
+}
+}
+@media only screen and (max-width: 767px) {
+ .is-sticky .main-header-area {
+ height: 70px;
+}
+ .light .getfundnav ul li .dropdown, .light .getfundnav ul li .megamenu, .light.breakpoint-on .getfundnav > ul > li > a, .light.breakpoint-on .getfund-navbar .getfund-menu {
+ background-color: #000000;
+}
+}
+@media only screen and (max-width: 991px) {
+ .main-header-area .nav-brand img {
+ height: auto;
+}
+ .getfundnav ul li.right-side {
+ margin-left: 0;
+}
+ .getfundnav ul li.right-side {
+ margin-left: 0;
+ margin-top: 15px;
+}
+ .getfundnav ul li.right-side ul li {
+ padding-left: 0;
+}
+ .getfundnav ul li.right-side ul li .btn {
+ padding: 2px 22px;
+}
+.main-header-area .getfundnav ul li a {
+ color: #fff !important;
+}
+.Footer-nav {
+ margin: 30px 0 0px 0;
+}
+.paymentM img {
+ width:auto;
+}
+}
+@media only screen and (max-width: 576px) {
+.topbar .list-inline {
+ text-align: center;
+ padding: 0 0 10px 0;
+}
+.topbar .socials-top {
+ text-align: center !important;
+}
+}
+ @media only screen and (max-width: 480px) {
+.trproduct-box-list ul {
+ display: inline-block;
+ vertical-align: top;
+ width: 100%;
+}
+.trproduct-box-list {
+ font-size: 12px;
+ line-height: 1;
+ font-weight: 600;
+ display: block !important;
+ grid-template-columns: auto auto auto;
+ justify-content: space-between;
+}
+}

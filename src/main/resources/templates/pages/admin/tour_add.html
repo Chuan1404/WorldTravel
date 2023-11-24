@@ -1,0 +1,239 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+
+<div layout:fragment="content" class="page-wrapper">
+    <div th:replace="fragments/admin/nav"></div>
+
+    <div class="container-fluid py-4">
+        <h1>Thêm tour</h1>
+        <form id="tour-form" class="w-100" th:object="${tour}" th:action="@{/admin/tour/add}" method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group input-group-static mb-4">
+                                <label>Tên tour</label>
+                                <input type="text" class="form-control" th:field="*{name}">
+                                <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="input-group input-group-static mb-4 ">
+                                <label>Số ngày</label>
+                                <input type="number" class="form-control" th:field="*{dayDuration}">
+                                <p class="text-danger" th:if="${#fields.hasErrors('dayDuration')}"
+                                   th:errors="*{dayDuration}"></p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group input-group-static mb-4">
+                                <label>Số đêm</label>
+                                <input type="number" class="form-control" th:field="*{nightDuration}">
+                                <p class="text-danger" th:if="${#fields.hasErrors('nightDuration')}"
+                                   th:errors="*{nightDuration}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="input-group input-group-static mb-4">
+                                <label>Giá cho một người</label>
+                                <input type="number" class="form-control" th:field="*{price}">
+                                <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group input-group-static mb-4">
+                                <label>Phương tiện</label>
+                                <input type="text" class="form-control" th:field="*{vehicle}">
+                                <p class="text-danger" th:if="${#fields.hasErrors('vehicle')}"
+                                   th:errors="*{vehicle}"></p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 address">
+                            <th:block th:if="${tour.addresses}">
+                                <div class="row border-dashed address-detail-0 p-2 mb-2"
+                                     th:each="address : ${tour.addresses}">
+                                    <input type="hidden" th:field="*{addresses[__${addressStat.index}__].id}">
+                                    <div class="col-6">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label th:for="'country-' + ${addressStat.index}" class="ms-0">Quốc
+                                                gia</label>
+                                            <select class="form-control country"
+                                                    th:id="'country-' + ${addressStat.index}"
+                                                    th:field="*{addresses[__${addressStat.index}__].country}"
+                                                    th:attr="defaultValue=${address.country}">
+                                                <!--                                                                                                    <option selected>Hãy chọn quốc gia</option>-->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label th:for="'state-' + ${addressStat.index}"
+                                                   class="ms-0">Tỉnh</label>
+                                            <select class="form-control state"
+                                                    th:id="'state-' + ${addressStat.index}"
+                                                    th:field="*{addresses[__${addressStat.index}__].state}"
+                                                    th:attr="defaultValue=${address.state}">
+                                                <option th:value="''" selected>Hãy chọn một tỉnh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="btn address-btn">Thêm địa chỉ</div>
+
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                       th:field="*{isActive}" th:checked="*{isActive}">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Checked switch</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group input-group-static mb-4">
+                                <label>Ảnh</label>
+                                <input type="file" name="file" accept="image/*" class="form-control">
+                                <input type="hidden" th:field="*{image}">
+                                <p class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></p>
+                                <img width="200" th:if="${tour.image}" th:src="${tour.image}">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-4 ">Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 h-100">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="summernote">Mô tả</label>
+                            <textarea id="summernote" th:field="*{tourDetail.description}"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="summernote2">Lịch trình</label>
+                            <textarea id="summernote2" th:field="*{tourDetail.schedule}"></textarea>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+
+<div layout:fragment="scripts" th:remove="tag">
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                height: 200,
+
+                fontSizeUnits: ['px', 'pt']
+            })
+            $('#summernote2').summernote({
+                height: 200,
+                fontSizeUnits: ['px', 'pt']
+            })
+        });
+    </script>
+
+    <script>
+        (async () => {
+            let address = document.querySelector('.address')
+            let countrySelects = document.querySelectorAll('.country')
+            let addButton = document.querySelector('.address-btn')
+
+            // init
+            countrySelects.forEach((select, index) => {
+                setSelect(select, fetchCountry, 'country', index)
+
+                let stateSelect = address.querySelector(`#state-${index}`)
+                if (select.getAttribute('defaultValue') != null) {
+                    stateSelect.disabled = false
+                    setSelect(stateSelect, () => fetchState(select.getAttribute('defaultValue')), 'state')
+                }
+            })
+
+        })()
+
+
+        function fetchCountry() {
+            var headers = new Headers();
+            headers.append("X-CSCAPI-KEY", "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA==");
+
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow'
+            };
+
+            return fetch("https://api.countrystatecity.in/v1/countries", requestOptions)
+                .then(response => response.json())
+                .catch(error => console.log('error', error));
+        }
+
+        function fetchState(countryValue) {
+            var headers = new Headers();
+            headers.append("X-CSCAPI-KEY", "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA==");
+
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow'
+            };
+
+            return fetch(`https://api.countrystatecity.in/v1/countries/${countryValue}/states`, requestOptions)
+                .then(response => response.json())
+                .catch(error => console.log('error', error));
+        }
+
+        async function setSelect(select, callback, type = 'country', index) {
+            let data = await callback()
+            let html = `<option disabled selected>Hãy chọn một ${type == 'country' ? 'quốc gia' : 'tỉnh'}</option>`
+            data.forEach(c => {
+                if (select.getAttribute('defaultValue') == c.iso2) html += `<option selected value="${c.iso2}">${c.name}</option>`
+                else html += `<option value="${c.iso2}">${c.name}</option>`
+            })
+            select.innerHTML = html
+
+            if (type == 'country') {
+                select.onchange = function (e) {
+                    let stateSelect = document.querySelector(`#state-${index}`)
+                    let value = e.target.options[e.target.selectedIndex].value
+                    stateSelect.disabled = false
+                    setSelect(stateSelect, () => fetchState(value), 'state')
+                }
+            }
+        }
+    </script>
+
+    <script>
+        let tourForm = document.forms[0]
+        let btn = document.querySelector('.address-btn')
+
+        // let addressForm =
+        btn.addEventListener('click', function (e) {
+            let form = tourForm.cloneNode(true)
+            form.id = ""
+            form.action = "/admin/tour/add-address"
+            form.method = "post"
+            console.log(Object.fromEntries(new FormData(form)))
+            document.body.append(form)
+            form.submit()
+        })
+    </script>
+</div>
+
+</html>

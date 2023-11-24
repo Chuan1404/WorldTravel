@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<div layout:fragment="content">
+    <section class="login-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="login-box">
+                        <div class="login-top">
+                            <h3 th:text="#{form.register}">Welcome Back.</h3>
+                            <p th:text="#{form.register.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                        <form class="login-form" th:action="@{/auth/register}" method="post" th:object="${user}">
+                            <div class="row">
+                                <div class="col-md-12 email">
+                                    <label th:text="#{form.name.label}">Name</label>
+                                    <input type="text" name="name" th:field="*{name}" th:placeholder="#{form.name.holder}">
+                                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                                </div>
+                                <div class="col-md-12 email">
+                                    <label>Email</label>
+                                    <input type="email" name="email" th:field="*{email}" th:placeholder="#{form.email.holder}">
+                                    <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+                                </div>
+
+                                <div class="col-md-12 email">
+                                    <label th:text="#{form.birthday.label}">Birth day</label>
+                                    <input type="date" name="date" th:field="*{birthDay}">
+                                </div>
+                                <div class="col-md-12 password">
+                                    <label th:text="#{form.password.label}">Password</label>
+                                    <input type="password" name="password" th:field="*{password}" th:placeholder="#{form.password.holder}">
+                                    <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                                </div>
+                                <div class="col-md-12 password">
+                                    <label th:text="#{form.confirm.label}">Confirm password</label>
+                                    <input type="password" name="confirm" th:field="*{confirm}" th:placeholder="#{form.confirm.holder}">
+                                    <p class="text-danger" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></p>
+                                </div>
+
+
+
+                                <div class="col-md-12">
+                                    <button type="submit" name="button" th:text="#{form.register}">Sign up</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="login-btm text-center">
+                            <p th:text="#{form.register.other}">or sign up with</p>
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item"><a href=""><i class="fab fa-google"></i></a></li>
+                                <li class="list-inline-item"><a href=""><i class="fab fa-facebook"></i></a></li>
+                                <li class="list-inline-item"><a href=""><i class="fab fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</html>

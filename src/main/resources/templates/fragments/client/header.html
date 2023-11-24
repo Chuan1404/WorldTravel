@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- =======================
+	header Start-->
+<header class="header-static navbar-sticky navbar-light shadow">
+    <!-- Search -->
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        This content is only shown to administrators.
+    </div>
+    <div sec:authorize="hasRole('ROLE_USER')">
+        This content is only shown to users.
+    </div>
+    <div class="top-search collapse bg-light" id="search-open" data-parent="#search">
+        <div class="container">
+            <div class="row position-relative">
+                <div class="col-md-8 mx-auto py-5">
+                    <form>
+                        <div class="input-group">
+                            <input class="form-control border-radius-right-0 border-right-0" type="text" name="search"
+                                   autofocus placeholder="What are you looking for?">
+                            <button type="button" class="btn btn-grad border-radius-left-0 mb-0">Search</button>
+                        </div>
+                    </form>
+                    <p class="small mt-2 mb-0"><strong>e.g.</strong>Template, TravelGo, WordPress </p>
+                </div>
+                <a class="position-absolute top-0 right-0 mt-3 mr-3" data-toggle="collapse" href="#search-open"><i
+                        class="fas fa-window-close"></i></a></div>
+        </div>
+    </div>
+    <!-- End Search -->
+
+    <!-- Navbar top start-->
+    <div class="navbar-top d-none d-lg-block">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- navbar top Left-->
+                <div class="d-flex align-items-center">
+                    <!-- Language -->
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownLanguage"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                           th:switch="${#strings.toString(param.lang)}">
+                            <!--<img class="dropdown-item-icon" src="/client_src/images/flag/vn.svg" th:case="'vi'" alt="">
+                            <img class="dropdown-item-icon" src="/client_src/images/flag/uk.svg" th:case="'en'" alt="">
+                            <img class="dropdown-item-icon" src="/client_src/images/flag/vn.svg" th:case="*" alt="">-->
+                            <span th:text="#{nav.select}"></span> </a>
+                        <div class="dropdown-menu mt-2 shadow" aria-labelledby="dropdownLanguage"><span
+                                class="dropdown-item-text" th:text="#{nav.select}">Select language</span>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="?lang=vi"><img class="dropdown-item-icon"
+                                                                          src="/client_src/images/flag/vn.svg"
+                                                                          alt=""> <span
+                                    th:text="#{nav.select.vi}"></span></a>
+                            <a class="dropdown-item" href="?lang=en"><img class="dropdown-item-icon"
+                                                                          src="/client_src/images/flag/uk.svg"
+                                                                          alt=""> <span
+                                    th:text="#{nav.select.en}"></span></a>
+                        </div>
+                    </div>
+                    <!-- Top info -->
+                    <ul class="nav list-unstyled ml-3">
+                        <li class="nav-item mr-3"><a class="navbar-link" href="#"><strong>Phone:</strong> (024) 123-1457</a>
+                        </li>
+                        <li class="nav-item mr-3"><a class="navbar-link" href="#"><strong>Email:</strong>
+                            help@TravelGo.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- navbar top Right-->
+                <div class="d-flex align-items-center">
+                    <!-- Top Account -->
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownAccount"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user mr-2"></i>
+                            <span th:text="${#authorization?.expression('isAuthenticated()')? #authentication.getName(): 'Account'}">Account</span>
+                        </a>
+                        <div class="dropdown-menu mt-2 shadow" aria-labelledby="dropdownAccount">
+                            <a
+                                    th:unless="${#authorization?.expression('isAuthenticated()')}" class="dropdown-item"
+                                    th:href="@{/auth/login}">Log In</a>
+                            <a class="dropdown-item"
+                               th:unless="${#authorization?.expression('isAuthenticated()')}"
+                               th:href="@{/auth/register}">Register</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item"
+                               th:if="${#authorization?.expression('isAuthenticated()')}"
+                               th:href="@{/auth/register}">Log out</a>
+                        </div>
+
+
+                    </div>
+                    <!-- top link -->
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link" href="">Contact</a></li>
+                    </ul>
+                    <!-- top social -->
+                    <ul class="social-icons">
+                        <li class="social-icons-item social-facebook m-0"><a class="social-icons-link w-auto px-2"
+                                                                             href="#"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li class="social-icons-item social-instagram m-0"><a class="social-icons-link w-auto px-2"
+                                                                              href="#"><i
+                                class="fab fa-twitter"></i></a></li>
+                        <li class="social-icons-item social-twitter m-0"><a class="social-icons-link w-auto pl-2"
+                                                                            href="#"><i
+                                class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar top End-->
+
+    <!-- Logo Nav Start -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="/"> <img src="/client_src/images/logo-header.png" alt="travelgo">
+            </a>
+            <!-- Menu opener button -->
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"> </span></button>
+            <!-- Main Menu Start -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <!-- Menu item 1 Demos-->
+                    <li class="nav-item"><a class="nav-link" href="#" style="white-space: nowrap" id="docMenu"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            th:text="#{nav.hotel}">Hotels</a>
+
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="docMenu"
+                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                     th:text="#{nav.flight}">Flights</a>
+                        <ul class="dropdown-menu" aria-labelledby="docMenu">
+                            <li><a class="dropdown-item" href="flight-index.html">Trong nước</a></li>
+                            <li><a class="dropdown-item" href="flight-list-view.html">Ngoài nước</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="docMenu"
+                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                     th:text="#{nav.domestic}"></a>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="docMenu"
+                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                     th:text="#{nav.international}">Tour</a>
+                    </li>
+
+
+                </ul>
+            </div>
+            <!-- Main Menu End -->
+            <!-- Header Extras Start-->
+            <div class="navbar-nav">
+                <!-- extra item Search-->
+                <div class="nav-item search border-0 pl-3 pr-0 px-lg-2" id="search"><a class="nav-link"
+                                                                                       data-toggle="collapse"
+                                                                                       href="#search-open"><i
+                        class="fas fa-search"></i></a></div>
+                <!-- extra item Btn-->
+                <div class="nav-item border-0 d-none d-lg-inline-block align-self-center"><a href="#"
+                                                                                             class=" btn btn-sm btn-grad text-white mb-0">Online
+                    Booking</a></div>
+            </div>
+            <!-- Header Extras End-->
+        </div>
+    </nav>
+    <!-- Logo Nav End -->
+</header>
+<!-- =======================
+	header End-->
+</html>
