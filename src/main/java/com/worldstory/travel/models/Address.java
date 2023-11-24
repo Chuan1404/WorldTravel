@@ -17,7 +17,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String country;
+    private String country = "VN";
     private String state;
     private String city;
 }

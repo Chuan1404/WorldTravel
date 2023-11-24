@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TourService {
@@ -26,8 +27,8 @@ public class TourService {
     @Autowired
     private Pagination pagination;
 
-    public Page<Tour> findAll() {
-        Pageable pageable = pagination.page("1", "30");
+    public Page<Tour> findAll(Map<String, String> params) {
+        Pageable pageable = pagination.page(params.get("page"), params.get("limit"));
         return tourRepository.findAll(pageable);
     }
 

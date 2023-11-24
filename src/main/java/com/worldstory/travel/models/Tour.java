@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -51,7 +52,7 @@ public class Tour {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime updatedDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private TourDetail tourDetail;
 
     @OneToMany

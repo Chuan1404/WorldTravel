@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/tour")
@@ -29,8 +26,8 @@ public class TourAdminController {
     private AmazonS3Service amazonS3Service;
 
     @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("tours", tourService.findAll());
+    public String index(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("tours", tourService.findAll(params));
         return "pages/admin/tour";
     }
 

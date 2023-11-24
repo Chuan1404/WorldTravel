@@ -60,7 +60,7 @@
                                 <div class="row border-dashed address-detail-0 p-2 mb-2"
                                      th:each="address : ${tour.addresses}">
                                     <input type="hidden" th:field="*{addresses[__${addressStat.index}__].id}">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <div class="input-group input-group-static mb-4">
                                             <label th:for="'country-' + ${addressStat.index}" class="ms-0">Quốc
                                                 gia</label>
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <div class="input-group input-group-static mb-4">
                                             <label th:for="'state-' + ${addressStat.index}"
                                                    class="ms-0">Tỉnh</label>
@@ -82,6 +82,19 @@
                                                     th:field="*{addresses[__${addressStat.index}__].state}"
                                                     th:attr="defaultValue=${address.state}">
                                                 <option th:value="''" selected>Hãy chọn một tỉnh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="input-group input-group-static mb-4">
+                                            <label th:for="'city-' + ${addressStat.index}"
+                                                   class="ms-0">Thành phố</label>
+                                            <select class="form-control city"
+                                                    th:id="'city-' + ${addressStat.index}"
+                                                    th:field="*{addresses[__${addressStat.index}__].city}"
+                                                    th:attr="defaultValue=${address.city}">
+                                                <option th:value="''" selected>Hãy chọn một thành phố</option>
                                             </select>
                                         </div>
                                     </div>
@@ -151,18 +164,24 @@
 
     <script>
         (async () => {
-            let address = document.querySelector('.address')
+            var address = document.querySelector('.address')
             let countrySelects = document.querySelectorAll('.country')
-            let addButton = document.querySelector('.address-btn')
 
             // init
             countrySelects.forEach((select, index) => {
                 setSelect(select, fetchCountry, 'country', index)
 
                 let stateSelect = address.querySelector(`#state-${index}`)
+                let citySelect = address.querySelector(`#city-${index}`)
+
                 if (select.getAttribute('defaultValue') != null) {
                     stateSelect.disabled = false
-                    setSelect(stateSelect, () => fetchState(select.getAttribute('defaultValue')), 'state')
+                    setSelect(stateSelect, () => fetchState(select.getAttribute('defaultValue')), 'state', index)
+                }
+
+                if(stateSelect.getAttribute('defaultValue') != null) {
+                    citySelect.disabled  = false
+                    setSelect(citySelect, () => fetchCity(select.getAttribute('defaultValue'), stateSelect.getAttribute('defaultValue')), 'city', index)
                 }
             })
 
@@ -199,21 +218,45 @@
                 .catch(error => console.log('error', error));
         }
 
+        function fetchCity(countryValue, stateValue) {
+            var headers = new Headers();
+            headers.append("X-CSCAPI-KEY", "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA==");
+
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow'
+            };
+
+            return fetch(`https://api.countrystatecity.in/v1/countries/${countryValue}/states/${stateValue}/cities`, requestOptions)
+                .then(response => response.json())
+                .catch(error => console.log('error', error));
+        }
+
         async function setSelect(select, callback, type = 'country', index) {
             let data = await callback()
-            let html = `<option disabled selected>Hãy chọn một ${type == 'country' ? 'quốc gia' : 'tỉnh'}</option>`
+            let html = `<option disabled selected>Hãy chọn một ${type == 'country' ? 'quốc gia' : type == 'state' ? 'tỉnh' : 'thành phố'}</option>`
             data.forEach(c => {
-                if (select.getAttribute('defaultValue') == c.iso2) html += `<option selected value="${c.iso2}">${c.name}</option>`
-                else html += `<option value="${c.iso2}">${c.name}</option>`
+                let value = c.iso2 || c.id
+                if (select.getAttribute('defaultValue') == value) html += `<option selected value="${value}">${c.name}</option>`
+                else html += `<option value="${value}">${c.name}</option>`
             })
             select.innerHTML = html
-
             if (type == 'country') {
                 select.onchange = function (e) {
-                    let stateSelect = document.querySelector(`#state-${index}`)
                     let value = e.target.options[e.target.selectedIndex].value
-                    stateSelect.disabled = false
-                    setSelect(stateSelect, () => fetchState(value), 'state')
+                    let stateSelect = document.querySelector(`#state-${index}`)
+                    setSelect(stateSelect, () => fetchState(value), 'state', index)
+                }
+            }
+
+            if (type == 'state') {
+                select.onchange = function (e) {
+                    let countrySelect = document.querySelector(`#country-${index}`)
+                    let citySelect = document.querySelector(`#city-${index}`)
+                    let value = e.target.options[e.target.selectedIndex].value
+                    citySelect.disabled = false
+                    setSelect(citySelect, () => fetchCity(countrySelect.options[countrySelect.selectedIndex].value, value), 'city')
                 }
             }
         }
@@ -229,7 +272,6 @@
             form.id = ""
             form.action = "/admin/tour/add-address"
             form.method = "post"
-            console.log(Object.fromEntries(new FormData(form)))
             document.body.append(form)
             form.submit()
         })
