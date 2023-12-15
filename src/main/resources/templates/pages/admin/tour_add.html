@@ -15,24 +15,24 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="input-group input-group-static mb-4">
-                                <label>Tên tour</label>
-                                <input type="text" class="form-control" th:field="*{name}">
+                                <label for="name">Tên tour</label>
+                                <input id="name" type="text" class="form-control" th:field="*{name}">
                                 <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="input-group input-group-static mb-4 ">
-                                <label>Số ngày</label>
-                                <input type="number" class="form-control" th:field="*{dayDuration}">
+                                <label for="dayDuration">Số ngày</label>
+                                <input id="dayDuration" type="number" class="form-control" th:field="*{dayDuration}">
                                 <p class="text-danger" th:if="${#fields.hasErrors('dayDuration')}"
                                    th:errors="*{dayDuration}"></p>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="input-group input-group-static mb-4">
-                                <label>Số đêm</label>
-                                <input type="number" class="form-control" th:field="*{nightDuration}">
+                                <label for="nightDuration">Số đêm</label>
+                                <input id="nightDuration" type="number" class="form-control" th:field="*{nightDuration}">
                                 <p class="text-danger" th:if="${#fields.hasErrors('nightDuration')}"
                                    th:errors="*{nightDuration}"></p>
                             </div>
@@ -40,34 +40,78 @@
 
                         <div class="col-6">
                             <div class="input-group input-group-static mb-4">
-                                <label>Giá cho một người</label>
-                                <input type="number" class="form-control" th:field="*{price}">
+                                <label for="price">Giá cho một người</label>
+                                <input id="price" type="number" class="form-control" th:field="*{price}">
                                 <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="input-group input-group-static mb-4">
-                                <label>Phương tiện</label>
-                                <input type="text" class="form-control" th:field="*{vehicle}">
+                                <label for="vehicle">Phương tiện</label>
+                                <input id="vehicle" type="text" class="form-control" th:field="*{vehicle}">
                                 <p class="text-danger" th:if="${#fields.hasErrors('vehicle')}"
                                    th:errors="*{vehicle}"></p>
                             </div>
                         </div>
 
+                        <div class="col-12">
+                            <label>Điểm đi</label>
+                            <div class="row border-dashed address-detail-0 p-2 mb-2">
+                                <input type="hidden" th:field="*{departure.id}">
+                                <div class="col-4">
+                                    <div class="input-group input-group-static mb-4">
+                                        <label for="country-0" class="ms-0">Quốc
+                                            gia</label>
+                                        <select class="form-control country"
+                                                id="country-0"
+                                                th:field="*{departure.country}"
+                                                th:attr="defaultValue=${tour.departure.country}">
+                                            <!--                                                                                                    <option selected>Hãy chọn quốc gia</option>-->
+                                        </select>
+                                    </div>
+                                </div>
 
-                        <div class="col-12 address">
-                            <th:block th:if="${tour.addresses}">
+                                <div class="col-4">
+                                    <div class="input-group input-group-static mb-4">
+                                        <label for="state-0"
+                                               class="ms-0">Tỉnh</label>
+                                        <select class="form-control state"
+                                                id="state-0"
+                                                th:field="*{departure.state}"
+                                                th:attr="defaultValue=${tour.departure.state}">
+                                            <option th:value="''" selected>Hãy chọn một tỉnh</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="input-group input-group-static mb-4">
+                                        <label for="city-0"
+                                               class="ms-0">Thành phố</label>
+                                        <select class="form-control city"
+                                                id="city-0"
+                                                th:field="*{departure.city}"
+                                                th:attr="defaultValue=${tour.departure.city}">
+                                            <option th:value="''" selected>Hãy chọn một thành phố</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label>Điểm đến</label>
+                            <th:block th:if="${tour.destinations}">
                                 <div class="row border-dashed address-detail-0 p-2 mb-2"
-                                     th:each="address : ${tour.addresses}">
-                                    <input type="hidden" th:field="*{addresses[__${addressStat.index}__].id}">
+                                     th:each="destination : ${tour.destinations}">
+                                    <input type="hidden" th:field="*{destinations[__${destinationStat.index}__].id}">
                                     <div class="col-4">
                                         <div class="input-group input-group-static mb-4">
-                                            <label th:for="'country-' + ${addressStat.index}" class="ms-0">Quốc
+                                            <label th:for="'country-' + ${destinationStat.index + 1}" class="ms-0">Quốc
                                                 gia</label>
                                             <select class="form-control country"
-                                                    th:id="'country-' + ${addressStat.index}"
-                                                    th:field="*{addresses[__${addressStat.index}__].country}"
-                                                    th:attr="defaultValue=${address.country}">
+                                                    th:id="'country-' + ${destinationStat.index + 1}"
+                                                    th:field="*{destinations[__${destinationStat.index}__].country}"
+                                                    th:attr="defaultValue=${destination.country}">
                                                 <!--                                                                                                    <option selected>Hãy chọn quốc gia</option>-->
                                             </select>
                                         </div>
@@ -75,12 +119,12 @@
 
                                     <div class="col-4">
                                         <div class="input-group input-group-static mb-4">
-                                            <label th:for="'state-' + ${addressStat.index}"
+                                            <label th:for="'state-' + ${destinationStat.index + 1}"
                                                    class="ms-0">Tỉnh</label>
                                             <select class="form-control state"
-                                                    th:id="'state-' + ${addressStat.index}"
-                                                    th:field="*{addresses[__${addressStat.index}__].state}"
-                                                    th:attr="defaultValue=${address.state}">
+                                                    th:id="'state-' + ${destinationStat.index + 1}"
+                                                    th:field="*{destinations[__${destinationStat.index}__].state}"
+                                                    th:attr="defaultValue=${destination.state}">
                                                 <option th:value="''" selected>Hãy chọn một tỉnh</option>
                                             </select>
                                         </div>
@@ -88,12 +132,12 @@
 
                                     <div class="col-4">
                                         <div class="input-group input-group-static mb-4">
-                                            <label th:for="'city-' + ${addressStat.index}"
+                                            <label th:for="'city-' + ${destinationStat.index + 1}"
                                                    class="ms-0">Thành phố</label>
                                             <select class="form-control city"
-                                                    th:id="'city-' + ${addressStat.index}"
-                                                    th:field="*{addresses[__${addressStat.index}__].city}"
-                                                    th:attr="defaultValue=${address.city}">
+                                                    th:id="'city-' + ${destinationStat.index + 1}"
+                                                    th:field="*{destinations[__${destinationStat.index}__].city}"
+                                                    th:attr="defaultValue=${destination.city}">
                                                 <option th:value="''" selected>Hãy chọn một thành phố</option>
                                             </select>
                                         </div>
@@ -105,15 +149,14 @@
 
                         <div class="col-12">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                                       th:field="*{isActive}" th:checked="*{isActive}">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Checked switch</label>
+                                <input id="isActive" class="form-check-input" type="checkbox" th:field="*{isActive}" th:checked="*{isActive}">
+                                <label for="isActive" class="form-check-label">Checked switch</label>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="input-group input-group-static mb-4">
-                                <label>Ảnh</label>
-                                <input type="file" name="file" accept="image/*" class="form-control">
+                                <label for="file">Ảnh</label>
+                                <input id="file" type="file" name="file" accept="image/*" class="form-control">
                                 <input type="hidden" th:field="*{image}">
                                 <p class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></p>
                                 <img width="200" th:if="${tour.image}" th:src="${tour.image}">
@@ -164,23 +207,22 @@
 
     <script>
         (async () => {
-            var address = document.querySelector('.address')
             let countrySelects = document.querySelectorAll('.country')
 
             // init
             countrySelects.forEach((select, index) => {
                 setSelect(select, fetchCountry, 'country', index)
 
-                let stateSelect = address.querySelector(`#state-${index}`)
-                let citySelect = address.querySelector(`#city-${index}`)
+                let stateSelect = document.querySelector(`#state-${index}`)
+                let citySelect = document.querySelector(`#city-${index}`)
 
                 if (select.getAttribute('defaultValue') != null) {
                     stateSelect.disabled = false
                     setSelect(stateSelect, () => fetchState(select.getAttribute('defaultValue')), 'state', index)
                 }
 
-                if(stateSelect.getAttribute('defaultValue') != null) {
-                    citySelect.disabled  = false
+                if (stateSelect.getAttribute('defaultValue') != null) {
+                    citySelect.disabled = false
                     setSelect(citySelect, () => fetchCity(select.getAttribute('defaultValue'), stateSelect.getAttribute('defaultValue')), 'city', index)
                 }
             })
@@ -190,7 +232,7 @@
 
         function fetchCountry() {
             var headers = new Headers();
-            headers.append("X-CSCAPI-KEY", "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA==");
+            headers.append("X-CSCAPI-KEY", `${COUNTRY_KEY}`);
 
             var requestOptions = {
                 method: 'GET',
@@ -198,14 +240,14 @@
                 redirect: 'follow'
             };
 
-            return fetch("https://api.countrystatecity.in/v1/countries", requestOptions)
+            return fetch(`${COUNTRY_API}/countries`, requestOptions)
                 .then(response => response.json())
                 .catch(error => console.log('error', error));
         }
 
         function fetchState(countryValue) {
             var headers = new Headers();
-            headers.append("X-CSCAPI-KEY", "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA==");
+            headers.append("X-CSCAPI-KEY", `${COUNTRY_KEY}`);
 
             var requestOptions = {
                 method: 'GET',
@@ -213,14 +255,14 @@
                 redirect: 'follow'
             };
 
-            return fetch(`https://api.countrystatecity.in/v1/countries/${countryValue}/states`, requestOptions)
+            return fetch(`${COUNTRY_API}/countries/${countryValue}/states`, requestOptions)
                 .then(response => response.json())
                 .catch(error => console.log('error', error));
         }
 
         function fetchCity(countryValue, stateValue) {
             var headers = new Headers();
-            headers.append("X-CSCAPI-KEY", "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA==");
+            headers.append("X-CSCAPI-KEY", `${COUNTRY_KEY}`);
 
             var requestOptions = {
                 method: 'GET',
@@ -228,7 +270,7 @@
                 redirect: 'follow'
             };
 
-            return fetch(`https://api.countrystatecity.in/v1/countries/${countryValue}/states/${stateValue}/cities`, requestOptions)
+            return fetch(`${COUNTRY_API}/countries/${countryValue}/states/${stateValue}/cities`, requestOptions)
                 .then(response => response.json())
                 .catch(error => console.log('error', error));
         }

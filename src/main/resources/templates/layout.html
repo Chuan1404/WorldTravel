@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link href="/client_src/css/style.css" type="text/css" rel="stylesheet" />
-    <link href="/client_src/css/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/bootstrap-datepicker.css" type="text/css" rel="stylesheet"/>
     <!-- Favicon -->
     <!-- Favicon and Touch Icons -->
     <link href="/client_src/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -17,15 +17,19 @@
     <title>TravelGo - Travel, Tour Booking HTML5 Template</title>
 </head>
 <body>
-    <header th:replace="~{fragments/client/header}"></header>
+<header th:replace="~{fragments/client/header}"></header>
 
-    <p layout:fragment="content" th:remove="tag">
-        Content is Here!
-    </p>
+<p layout:fragment="content" th:remove="tag">
+    Content is Here!
+</p>
 
-    <footer th:replace="~{fragments/client/footer}"></footer>
+
+<footer th:replace="~{fragments/client/footer}"></footer>
 </body>
 
+<script>
+    const HOST = "http://localhost:8080"
+</script>
 <script src="/js/jquery.min.js" type="text/javascript"></script>
 <script src="/js/popper.min.js" type="text/javascript"></script>
 <script src="/js/bootstrap.min.js" type="text/javascript"></script>
@@ -37,5 +41,31 @@
 <script src="/js/jquery.fancybox.min.js" type="text/javascript"></script>
 <script src="/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+
+<script th:inline="javascript">
+    let pagination = document.querySelector('.paginationCommon')
+    let pages = pagination.querySelectorAll('.page')
+    pages.forEach(page => {
+        let value = page.getAttribute("value")
+        page.onclick = function (e) {
+            e.preventDefault()
+            goToPage(value)
+        }
+    })
+
+
+    function goToPage(number) {
+        let strs = window.location.search;
+        if (strs.includes("page")) {
+            let index = strs.lastIndexOf("page=")
+            strs = strs.substring(0, index + 5) + number + strs.substring(index + 6), strs.length
+        } else {
+            strs += "&page=" + number
+        }
+
+        window.location.search = strs
+    }
+</script>
+<script layout:fragment="scripts"></script>
 
 </html>

@@ -5,32 +5,6 @@
 <!-- =======================
 	header Start-->
 <header class="header-static navbar-sticky navbar-light shadow">
-    <!-- Search -->
-
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        This content is only shown to administrators.
-    </div>
-    <div sec:authorize="hasRole('ROLE_USER')">
-        This content is only shown to users.
-    </div>
-    <div class="top-search collapse bg-light" id="search-open" data-parent="#search">
-        <div class="container">
-            <div class="row position-relative">
-                <div class="col-md-8 mx-auto py-5">
-                    <form>
-                        <div class="input-group">
-                            <input class="form-control border-radius-right-0 border-right-0" type="text" name="search"
-                                   autofocus placeholder="What are you looking for?">
-                            <button type="button" class="btn btn-grad border-radius-left-0 mb-0">Search</button>
-                        </div>
-                    </form>
-                    <p class="small mt-2 mb-0"><strong>e.g.</strong>Template, TravelGo, WordPress </p>
-                </div>
-                <a class="position-absolute top-0 right-0 mt-3 mr-3" data-toggle="collapse" href="#search-open"><i
-                        class="fas fa-window-close"></i></a></div>
-        </div>
-    </div>
-    <!-- End Search -->
 
     <!-- Navbar top start-->
     <div class="navbar-top d-none d-lg-block">
@@ -85,7 +59,6 @@
                             <a class="dropdown-item"
                                th:unless="${#authorization?.expression('isAuthenticated()')}"
                                th:href="@{/auth/register}">Register</a>
-                            <a class="dropdown-item" href="#">Settings</a>
                             <a class="dropdown-item"
                                th:if="${#authorization?.expression('isAuthenticated()')}"
                                th:href="@{/auth/register}">Log out</a>
@@ -93,10 +66,7 @@
 
 
                     </div>
-                    <!-- top link -->
-                    <ul class="nav">
-                        <li class="nav-item"><a class="nav-link" href="">Contact</a></li>
-                    </ul>
+
                     <!-- top social -->
                     <ul class="social-icons">
                         <li class="social-icons-item social-facebook m-0"><a class="social-icons-link w-auto px-2"
@@ -129,27 +99,15 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <!-- Menu item 1 Demos-->
-                    <li class="nav-item"><a class="nav-link" href="#" style="white-space: nowrap" id="docMenu"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/hotel}" style="white-space: nowrap"
                                             th:text="#{nav.hotel}">Hotels</a>
 
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="docMenu"
-                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                     th:text="#{nav.flight}">Flights</a>
-                        <ul class="dropdown-menu" aria-labelledby="docMenu">
-                            <li><a class="dropdown-item" href="flight-index.html">Trong nước</a></li>
-                            <li><a class="dropdown-item" href="flight-list-view.html">Ngoài nước</a></li>
-
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="docMenu"
-                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    <li class="nav-item"><a class="nav-link" th:href="@{'/tour?domestic=1'}"
                                                      th:text="#{nav.domestic}"></a>
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="docMenu"
-                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    <li class="nav-item"><a class="nav-link" th:href="@{'/tour?foreign=1'}"
                                                      th:text="#{nav.international}">Tour</a>
                     </li>
 
@@ -159,13 +117,8 @@
             <!-- Main Menu End -->
             <!-- Header Extras Start-->
             <div class="navbar-nav">
-                <!-- extra item Search-->
-                <div class="nav-item search border-0 pl-3 pr-0 px-lg-2" id="search"><a class="nav-link"
-                                                                                       data-toggle="collapse"
-                                                                                       href="#search-open"><i
-                        class="fas fa-search"></i></a></div>
                 <!-- extra item Btn-->
-                <div class="nav-item border-0 d-none d-lg-inline-block align-self-center"><a href="#"
+                <div class="nav-item ml-2 border-0 d-none d-lg-inline-block align-self-center"><a href="#"
                                                                                              class=" btn btn-sm btn-grad text-white mb-0">Online
                     Booking</a></div>
             </div>

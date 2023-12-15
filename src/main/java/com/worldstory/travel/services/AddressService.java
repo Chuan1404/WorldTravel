@@ -15,4 +15,8 @@ public class AddressService {
     public List<Address> saveAll(List<Address> addresses) {
         return addressRepository.saveAll(addresses);
     }
+
+    public Address save(Address address) {
+        return addressRepository.save(address);
+    }
 }

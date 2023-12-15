@@ -27,9 +27,8 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
-
 </head>
-
+<style layout:fragment="styles"></style>
 <body class="g-sidenav-show  bg-gray-200">
 <header th:replace="~{fragments/admin/aside}"></header>
 
@@ -39,6 +38,11 @@
 
 </body>
 
+<script>
+    const HOST = "http://localhost:8080"
+    const COUNTRY_KEY = "ZFhTRkxORjNEY0dHWTUxa2t6c2hoYjh6SDlVcVZMbGRDRkJnaXdTdA=="
+    const COUNTRY_API = "https://api.countrystatecity.in/v1"
+</script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>

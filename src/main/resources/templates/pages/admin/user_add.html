@@ -1,0 +1,96 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+
+<div layout:fragment="content" class="page-wrapper">
+    <div th:replace="fragments/admin/nav"></div>
+
+    <div class="container-fluid py-4">
+        <h1>Thêm người dùng</h1>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form id="tour-form" class="w-100" th:object="${user}" th:action="@{/admin/user/add}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{createdDate}">
+                    <div class="input-group input-group-static mb-4">
+                        <label for="name">Họ và tên người dùng</label>
+                        <input id="name" type="text" class="form-control" th:field="*{name}">
+                        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" class="form-control" th:field="*{email}">
+                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label for="phone">Phone</label>
+                        <input id="phone" type="text" class="form-control" th:field="*{phone}">
+                        <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label for="birthDay">Birthday</label>
+                        <input id="birthDay" type="date" class="form-control" th:field="*{birthDay}">
+                        <p class="text-danger" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></p>
+                    </div>
+
+                    <label>Roles</label>
+                    <div class="input-group input-group-static mb-4 d-flex">
+                        <div class="mr-4">
+                            <input class="mr-1" id="role_admin" type="checkbox" name="uroles"
+                                   value="ADMIN" th:checked="${user.roles.contains(ADMIN)}"/>
+                            <label for="role_admin">ADMIN</label>
+                        </div>
+<!--                        <div class="mr-4">-->
+<!--                            <input class="mr-1" id="role_tour_guide" type="checkbox" name="roles"-->
+<!--                                   value="TOUR_GUIDE" th:checked="${roleList.containsAll(user.roles)}"/>-->
+<!--                            <label for="role_tour_guide">TOUR_GUIDE</label>-->
+<!--                        </div>-->
+                        <div class="mr-4">
+                            <input class="mr-1" id="role_advisor" type="checkbox" name="uroles"
+                                   value="ADVISOR" th:checked="${user.roles.contains(ADVISOR)}"/>
+                            <label for="role_advisor">ADVISOR</label>
+                        </div>
+                        <div class="div">
+                            <input class="mr-1" id="role_customer" type="checkbox" name="uroles"
+                                   value="CUSTOMER" th:checked="${user.roles.contains(CUSTOMER)}"/>
+                            <label for="role_customer">CUSTOMER</label>
+                        </div>
+                    </div>
+
+                    <p th:errors="*{roles}"></p>
+                    <p class="text-danger" th:if="${user.roles.size() == 0}">Không được để trống</p>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label for="name">Password</label>
+                        <input id="password" type="password" class="form-control" th:field="*{password}">
+                        <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                    </div>
+
+                    <div class="input-group input-group-static mb-4">
+                        <label for="name">Confirm Password</label>
+                        <input id="confirm" type="password" class="form-control" th:field="*{confirm}">
+                        <p class="text-danger" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></p>
+                    </div>
+
+                    <div class="form-check form-switch">
+                        <input id="isActive" class="form-check-input" type="checkbox" th:field="*{isActive}"
+                               th:checked="*{isActive}">
+                        <label for="isActive" class="form-check-label">Checked switch</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4 ">Xác nhận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div layout:fragment="scripts" th:remove="tag">
+
+</div>
+
+</html>

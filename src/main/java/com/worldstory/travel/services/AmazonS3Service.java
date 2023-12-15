@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.time.LocalDateTime;
 
 @Service
 public class AmazonS3Service {
@@ -36,8 +37,8 @@ public class AmazonS3Service {
 
     public String uploadFile(MultipartFile multipartFile) {
         File file = multipartToFile(multipartFile);
-        String url = uploadFile(file);
-        return url;
+        if(file == null) return null;
+        return uploadFile(file);
     }
 
     public void deleteFile(String key) {
@@ -46,7 +47,9 @@ public class AmazonS3Service {
     }
 
     private File multipartToFile(MultipartFile multipartFile) {
-        File file = new File(multipartFile.getOriginalFilename());
+        String filename = multipartFile.getOriginalFilename() != null ? multipartFile.getOriginalFilename() : LocalDateTime.now().toString();
+        File file = new File(filename);
+
         try (FileOutputStream os = new FileOutputStream(file)) {
             os.write(multipartFile.getBytes());
             return file;

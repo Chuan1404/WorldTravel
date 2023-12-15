@@ -7,8 +7,9 @@
     <div class="container-fluid py-4">
 
       <div class="row">
-        <div class="col-12">
-          <a href="/admin/tour/add" class="text-white bg-gradient-primary"><button class="btn btn-primary" type="button">Thêm tour</button></a>
+        <div class="col-12 d-flex">
+          <a href="/admin/tour/add" class="text-white bg-gradient ml-auto">
+            <button class="btn btn-primary" type="button">Thêm tour</button></a>
         </div>
         <div class="col-12">
           <div class="card my-4 ml-auto">
@@ -26,6 +27,8 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thời gian</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giá</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phương tiện</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Điểm đi</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Điểm đến</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng thái</th>
                     <th class="text-secondary opacity-7"></th>
                     <th class="text-secondary opacity-7"></th>
@@ -49,6 +52,14 @@
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold" th:text="${tour.vehicle}">Xe 4 chỗ</span>
                     </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold" th:text="${tour.departure.city}">Hà Nội</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <th:block th:each="destination : ${tour.destinations}">
+                        <span class="text-secondary text-xs font-weight-bold" th:text="${destination.city}">Hồ Chí Minh</span>
+                      </th:block>
+                    </td>
                     <td class="align-middle text-center text-sm" th:switch="${tour.isActive}">
                       <span class="badge badge-sm bg-gradient-success" th:case="true">Active</span>
                       <span class="badge badge-sm bg-gradient-secondary" th:case="false">UnActive</span>
@@ -60,6 +71,7 @@
                     </td>
                     <td class="align-middle">
                       <form method="post" th:action="@{/admin/tour/delete/{id}(id=${tour.id})}">
+                        <input type="hidden" th:name="${tour.id}">
                         <button type="submit" class="btn">Detele</button>
                       </form>
                     </td>

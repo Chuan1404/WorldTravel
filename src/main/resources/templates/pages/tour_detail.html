@@ -6,139 +6,199 @@
 <body>
 
 <div layout:fragment="content">
-  <section>
-    <!-- Slider main container-->
-    <div class="swiper-container detail-slider slider-gallery">
-      <!-- Additional required wrapper-->
-      <div class="swiper-wrapper">
-        <!-- Slides-->
-        <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide"><a data-toggle="gallery-top" title="Our street"><img src="images/hotels/room-details1.jpg" alt="Our street" class="img-fluid"></a></div>
-        <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide"><a data-toggle="gallery-top" title="Outside"><img src="images/hotels/room-details2.jpg" alt="Outside" class="img-fluid"></a></div>
-        <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide"><a data-toggle="gallery-top" title="Rear entrance"><img src="images/hotels/room-details3.jpg" alt="Rear entrance" class="img-fluid"></a></div>
-        <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide"><a data-toggle="gallery-top" title="Kitchen"><img src="images/hotels/room-details4.jpg" alt="Kitchen" class="img-fluid"></a></div>
-        <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide"><a data-toggle="gallery-top" title="Bedroom"><img src="images/hotels/room-details.jpg" alt="Bedroom" class="img-fluid"></a></div>
-        <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide"><a data-toggle="gallery-top" title="Bedroom"><img src="images/hotels/room-details2.jpg" alt="Bedroom" class="img-fluid"></a></div>
-      </div>
-      <div class="swiper-pagination swiper-pagination-white"></div>
-      <div class="swiper-button-prev swiper-button-white"></div>
-      <div class="swiper-button-next swiper-button-white"></div>
-    </div>
-  </section>
-  <section class="pt80 pb80 listingDetails Campaigns">
-    <div class="container">
-      <div class="row">
+    <section class="pt80 pb80 listingDetails Campaigns">
+        <div class="container">
+            <div class="row">
 
-        <!-- Tab line -->
-        <div class="col-lg-8 col-md-12 col-sm-12 ">
-          <ul class="nav nav-tabs tab-line">
-            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab-de-1"> Description </a> </li>
-            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab-de-4"> Calendar </a> </li>
-            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab-de-5"> Gallery </a> </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab-de-1">
-              <div class="text-block NopaddingDetails" th:utext="${tour.tourDetail.description}">
+                <!-- Tab line -->
+                <div class="col-lg-7 col-md-12 col-sm-12 ">
+                    <ul class="nav nav-tabs tab-line">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-de-1" th:text="#{common.schedule}">
+                                Schedule </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-de-4" th:text="#{common.description}">
+                                Description
+                            </a>
+                        </li>
+                        <!--            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab-de-5"> Gallery </a> </li>-->
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-de-1">
+                            <div class="text-block NopaddingDetails" th:utext="${tour.tourDetail.schedule}">
 
-              </div>
-              <div class="text-block">
-                <!-- Listing Location-->
-                <h5 class="mb-4">Location</h5>
-                <div class="map-wrapper-300 mb-3">
-                  <div class="map-container fw-map">
-                    <div id="map-main"> </div>
-                  </div>
+                            </div>
+                            <!--                            <div class="text-block">-->
+                            <!--                                &lt;!&ndash; Listing Location&ndash;&gt;-->
+                            <!--                                <h5 class="mb-4">Location</h5>-->
+                            <!--                                <div class="map-wrapper-300 mb-3">-->
+                            <!--                                    <div class="map-container fw-map">-->
+                            <!--                                        <div id="map-main"></div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="text-block">-->
+                            <!--                                &lt;!&ndash; Gallery&ndash;&gt;-->
+                            <!--                                <h5 class="mb-4">Gallery</h5>-->
+                            <!--                                <div class="row gallery ml-n1 mr-n1">-->
+                            <!--                                    <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room1.jpg"-->
+                            <!--                                                                                           alt="..." class="img-fluid"></a>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room2.jpg"-->
+                            <!--                                                                                           alt="..." class="img-fluid"></a>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room3.jpg"-->
+                            <!--                                                                                           alt="..." class="img-fluid"></a>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+
+                        </div>
+                        <div class="tab-pane" id="tab-de-4">
+                            <div class="text-block NopaddingDetails" th:utext="${tour.tourDetail.description}">
+
+                            </div>
+                        </div>
+                        <!--            <div class="tab-pane" id="tab-de-5">-->
+                        <!--              <div class="text-block NopaddingDetails">-->
+                        <!--                &lt;!&ndash; Gallery&ndash;&gt;-->
+                        <!--                <h5 class="mb-4">Gallery</h5>-->
+                        <!--                <div class="row gallery ml-n1 mr-n1">-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room1.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room7.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room2.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room3.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room4.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room5.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room6.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room7.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room8.jpg" alt="..." class="img-fluid"></a></div>-->
+                        <!--                </div>-->
+                        <!--              </div>-->
+                        <!--            </div>-->
+                    </div>
                 </div>
-              </div>
-              <div class="text-block">
-                <!-- Gallery-->
-                <h5 class="mb-4">Gallery</h5>
-                <div class="row gallery ml-n1 mr-n1">
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room1.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room2.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room3.jpg" alt="..." class="img-fluid"></a></div>
+                <div class="col-lg-5 col-md-12 col-sm-12 right_Details">
+                    <div class="p-4 shadow ml-lg-4 rounded sticky-top" style="top: 100px;">
+                        <p class="text-muted"><span class="text-primary h2"
+                                                    th:text="${#numbers.formatDecimal(tour.price, 0, 'COMMA', 0, 'POINT')}">$80</span>
+                            <span th:text="#{common.perPerson}">per person</span></p>
+                        <hr class="my-2">
+                        <form id="booking-form" autocomplete="off" class="form">
+                            <div class="form-group">
+                                <label for="bookingDate" class="form-label" th:text="#{form.departureDate.label}">Your stay *</label>
+                                <div class="datepicker-container datepicker-container-right">
+                                    <input type="date" name="departureDate" id="bookingDate"
+                                            required class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="guests" class="form-label" th:text="#{form.name.label}">Name *</label>
+                                <div class="form-group">
+                                    <input type="text" id="guests" required
+                                           class="form-control" name="name" th:placeholder="#{form.name.holder}">
+                                </div>
+
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="phone" class="form-label" th:text="#{form.phone.label}">Phone *</label>
+                                <div class="form-group">
+                                    <input type="text" name="phone" id="phone" th:placeholder="#{form.phone.holder}" required
+                                           class="form-control">
+                                </div>
+
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="form-group">
+                                    <input type="text" id="email" name="email" th:placeholder="#{form.email.holder}"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label" th:text="#{form.number.holder}"></label>
+                                </div>
+                                <div class="form-group mb-4 col-4">
+                                    <label for="adults" class="form-label" style="white-space: nowrap" th:text="#{common.adults}">Adults</label>
+                                    <div class="form-group">
+                                        <input type="number" name="adultNumber" min="0" id="adults" required
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4 col-4">
+                                    <label for="children" class="form-label" style="white-space: nowrap" th:text="#{common.children}">Children</label>
+                                    <div class="form-group">
+                                        <input type="number" min="0" name="childNumber" id="children" required
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4 col-4">
+                                    <label for="children" class="form-label" style="white-space: nowrap" th:text="#{common.babies}">Baby</label>
+                                    <div class="baby">
+                                        <input type="number" min="0" name="babyNumber" id="baby" required
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button id="booking-form-btn" type="submit" th:text="#{form.submit.label}" class="btn btn-primary btn-block">Confirm Booking</button>
+                                <p class="text-center" style="display: none" id="booking-form-loading">... Loading</p>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
-              </div>
-
-
             </div>
-            <div class="tab-pane" id="tab-de-4">
-              <div class="text-block NopaddingDetails" th:utext="${tour.tourDetail.schedule}">
-
-              </div>
-            </div>
-            <div class="tab-pane" id="tab-de-5">
-              <div class="text-block NopaddingDetails">
-                <!-- Gallery-->
-                <h5 class="mb-4">Gallery</h5>
-                <div class="row gallery ml-n1 mr-n1">
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room1.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room7.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room2.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room3.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room4.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room5.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room6.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room7.jpg" alt="..." class="img-fluid"></a></div>
-                  <div class="col-lg-4 col-6 px-1 mb-2"><a href="#"><img src="images/hotels/room8.jpg" alt="..." class="img-fluid"></a></div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 right_Details">
-          <div class="p-4 shadow ml-lg-4 rounded sticky-top" style="top: 100px;">
-            <p class="text-muted"><span class="text-primary h2">$80</span> per night</p>
-            <hr class="my-4">
-            <form id="booking-form" method="get" action="#" autocomplete="off" class="form">
-              <div class="form-group">
-                <label for="bookingDate" class="form-label">Your stay *</label>
-                <div class="datepicker-container datepicker-container-right">
-                  <input type="text" name="bookingDate" id="bookingDate" placeholder="Choose your dates" required class="form-control">
-                </div>
-              </div>
-              <div class="form-group mb-4">
-                <label for="guests" class="form-label">Guests *</label>
-                <select name="guests" id="guests" class="form-control">
-                  <option value="1">1 Guest</option>
-                  <option value="2">2 Guests</option>
-                  <option value="3">3 Guests</option>
-                  <option value="4">4 Guests</option>
-                  <option value="5">5 Guests</option>
-                </select>
-              </div>
-              <div class="form-group mb-4">
-                <label for="guests" class="form-label">Child *</label>
-                <select name="guests" id="guests" class="form-control">
-                  <option value="1">1 Child</option>
-                  <option value="2">2 Child</option>
-                  <option value="3">3 Child</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Confirm Booking</button>
-              </div>
-            </form>
-            <hr class="my-4">
-            <div class="text-center">
-              <p> <a href="#" class="text-secondary text-sm"> <i class="fa fa-heart"></i> Bookmark This Hotels</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
+    <section th:replace="fragments/client/custom_tour"></section>
 </div>
+
 
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <div layout:fragment="scripts" th:remove="tag">
-  <script src="/js/isotope.pkgd.min.js" type="text/javascript"></script>
-  <script src="/js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRSEJH8Z2UVyyaAv0TD7MY-IgclK5Izm8&amp;libraries=places&amp;callback=initAutocomplete"></script>
-  <script src="/js/map_infobox.js"></script>
-  <script src="/js/markerclusterer.js"></script>
-  <script src="/js/maps.js"></script>
+    <script src="/js/isotope.pkgd.min.js" type="text/javascript"></script>
+    <script src="/js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRSEJH8Z2UVyyaAv0TD7MY-IgclK5Izm8&amp;libraries=places&amp;callback=initAutocomplete"></script>
+    <script src="/js/map_infobox.js"></script>
+    <script src="/js/markerclusterer.js"></script>
+    <script src="/js/maps.js"></script>
+
+    <script th:inline="javascript">
+        let form = document.querySelector("#booking-form")
+        let btn = document.querySelector("#booking-form-btn")
+        let loading = document.querySelector('#booking-form-loading')
+        btn.onclick = async function (e) {
+            e.preventDefault()
+            e.target.style.display = "none"
+            loading.style.display = "block"
+            let data = Object.fromEntries(new FormData(form).entries())
+            data.tourId = [[${tour.id}]]
+
+            let response = await fetch(`${HOST}/order/tour`, {
+                method: 'POST',
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+
+            if(response.error) {
+                e.target.style.display = "block"
+                loading.style.display = "none"
+                return alert(response.error)
+            }
+
+            window.location = '/thank'
+        }
+    </script>
 </div>
 
 </body>

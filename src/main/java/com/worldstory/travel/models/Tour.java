@@ -56,11 +56,11 @@ public class Tour {
     private TourDetail tourDetail;
 
     @OneToMany
-    private Set<TourOrder> tourOrders;
+    private List<Trip> trips;
+
+    @OneToOne
+    private Address departure;
 
     @OneToMany
-    private Set<Trip> trips;
-
-    @OneToMany
-    private List<Address> addresses;
+    private List<Address> destinations;
 }

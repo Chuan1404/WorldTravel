@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+
+<div layout:fragment="content" class="page-wrapper">
+  <div th:replace="fragments/admin/nav"></div>
+  <div class="container-fluid py-4">
+
+    <div class="row">
+      <div class="col-12 d-flex">
+        <a th:href="@{/admin/user(role='CUSTOMER')}" class="text-white">
+          <button class="btn btn-primary" type="button">Customer</button>
+        </a>
+
+        <a th:href="@{/admin/user(role='ADVISOR')}" class="text-white">
+          <button class="btn btn-light" type="button">Advisor</button>
+        </a>
+        <a th:href="@{/admin/user(role='ADMIN')}" class="text-white">
+          <button class="btn btn-light" type="button">Admin</button>
+        </a>
+        <a th:href="@{/admin/user/add}" class="text-white ml-auto">
+          <button class="btn btn-primary" type="button">Thêm người dùng</button>
+        </a>
+      </div>
+      <div class="col-12">
+        <div class="card my-4 ml-auto">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Danh sách người dùng</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Họ và tên</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thông tin liên hệ</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày tham gia</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng thái</th>
+                  <th class="text-secondary opacity-7"></th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm" th:text="${user.id}">Id</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0" th:text="${user.name}">Name</p>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <p class="text-xs font-weight-bold mb-0" th:text="${user.email}">Information</p>
+                    <p class="text-xs font-weight-bold mb-0" th:text="${user.phone}">Information</p>
+                    <p class="text-xs font-weight-bold mb-0" th:text="${user.birthDay}">Information</p>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold" th:text="${user.createdDate}">Ngày tham gia</span>
+                  </td>
+                  <td class="align-middle text-center text-sm" th:switch="${user.isActive}">
+                    <span class="badge badge-sm bg-gradient-success" th:case="true">Active</span>
+                    <span class="badge badge-sm bg-gradient-secondary" th:case="false">UnActive</span>
+                  </td>
+                  <td class="align-middle">
+                    <form method="get" th:action="@{/admin/user/update/{id}(id=${user.id})}">
+                      <button type="submit" class="btn">Edit</button>
+                    </form>
+                  </td>
+                  <td class="align-middle">
+                    <form method="post" th:action="@{/admin/user/delete/{id}(id=${user.id})}">
+                      <button type="submit" class="btn">Detele</button>
+                    </form>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>

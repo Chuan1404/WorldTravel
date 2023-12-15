@@ -28,6 +28,12 @@
                                 </div>
 
                                 <div class="col-md-12 email">
+                                    <label>Phone</label>
+                                    <input type="text" th:field="*{phone}" th:placeholder="#{form.phone.holder}">
+                                    <p th:if="${#fields.hasErrors('phone')}" class="text-danger" th:errors="*{phone}"></p>
+                                </div>
+
+                                <div class="col-md-12 email">
                                     <label th:text="#{form.birthday.label}">Birth day</label>
                                     <input type="date" name="date" th:field="*{birthDay}">
                                 </div>

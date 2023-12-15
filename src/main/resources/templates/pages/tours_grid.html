@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<div layout:fragment="content">
+    <div class="innerpage-banner left bg-overlay-dark-7 py-7"
+         style="background:url(images/07.jpg) repeat; background-size:cover;">
+        <div class="container">
+            <div class="row all-text-white">
+                <div class="col-md-12 align-self-center">
+                    <h1 class="innerpage-title">Tour Grid</h1>
+                    <h6 class="subtitle">Fusce iaculis ex sed nulla commodo imperdiet. Proin sed rhoncus ligula.</h6>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active"><a href="index.html"><i class="ti-home"></i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item">Tour Grid</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =======================
+        Banner innerpage -->
+
+    <section class="pt80 pb80 cruise-grid-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="Filter-left">
+                        <form th:action="@{/tour}">
+                            <input type="hidden" name="view" value="grid">
+                            <div class="mb-left">
+                                <label class="form-label" th:text="#{form.search.label}">Search</label>
+                                <div class="form-group">
+                                    <input name="kw" th:value="${param.get('kw')}" type="text"
+                                           th:placeholder="#{form.search.holder}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-label" th:text="#{form.price.label}">Khoảng giá</label>
+
+                                </div>
+                                <div class="mb-left col-6">
+                                    <div class="form-group">
+                                        <input type="number" name="from"
+                                               th:value="${param.get('from')}"
+                                               th:placeholder="#{form.price.from}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="mb-left col-6">
+                                    <div class="form-group">
+                                        <input type="number" name="to"
+                                               th:value="${param.get('to')}"
+                                               th:placeholder="#{form.price.to}" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-left">
+                                <label class="form-label" th:text="#{common.area}">Khu vực</label>
+                                <ul class="list-inline mb-0 mt-1">
+                                    <li class="list-inline-item">
+                                        <div class="custom-control custom-switch">
+                                            <input id="instantBook" type="checkbox" class="custom-control-input" name="domestic" value="1" th:checked="${param.domestic}">
+                                            <label for="instantBook" class="custom-control-label"> <span class="text-sm" th:text="#{common.domestic}">Trong nước</span></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <div class="custom-control custom-switch">
+                                            <input id="superhost" type="checkbox" class="custom-control-input" name="foreign" value="1" th:checked="${param.foreign}">
+                                            <label for="superhost" class="custom-control-label"> <span class="text-sm" th:text="#{common.foreign}">Ngoài nước</span></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pb-left">
+                                <div class="mb-left">
+                                    <button type="submit" class="btn btn-primary btn-grad FilterBtn"><i
+                                            class="fas fa-filter mr-1"></i><span
+                                            th:text="#{common.filter}">Filter</span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12">
+
+                    <div class="resultBar barSpaceAdjust">
+                        <h2>We found <span th:text="${tours.getTotalElements()}">7</span> Results for you</h2>
+                        <ul class="list-inline">
+                            <li><a href="?view=list"><i class="fa fa-th" aria-hidden="true"></i></a></li>
+                            <li class="active"><a href="?view=grid"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 py-2" th:each="tour : ${tours}">
+                            <div class="listroBox h-100">
+                                <figure>
+                                    <a th:href="@{/tour/{id}(id=${tour.id})}"><img th:src="${tour.image}"
+                                                                                   class="img-fluid" alt="">
+                                        <div class="read_more"><span th:text="#{common.viewMore}">Read more</span></div>
+                                    </a>
+                                </figure>
+                                <div class="listroBoxmain">
+                                    <h3><a th:href="@{/tour/{id}(id=${tour.id})}" th:text="${tour.name}">Blue
+                                        Hill Restaurant</a></h3>
+                                    <p th:text="${'Thời gian: ' + tour.dayDuration} + ' ngày ' + ${tour.nightDuration} + ' đêm'"></p>
+                                    <p th:text="${'Phương tiện: ' + tour.vehicle} + ' ngày ' + ${tour.nightDuration} + ' đêm'"></p>
+                                    <h4 th:text="${'Giá: ' + #numbers.formatDecimal(tour.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="paginationCommon blogPagination categoryPagination"
+                             th:if="${tours.getTotalPages()}">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination"
+                                    th:with="currentPage=${param.page != null ? Integer.parseInt(param.page) : 1}">
+                                    <li th:if="${currentPage > 1}">
+                                        <a href="#" class="page" th:value="${currentPage - 1}">
+                                            <span aria-hidden="true"><i
+                                                    class="fa fa-angle-left" aria-hidden="true"></i></span>
+                                        </a>
+                                    </li>
+                                    <th:block th:with="from=${(currentPage - 2 <= 0) or (tours.getTotalPages() - 4 < 0)
+                                        ? 1
+                                        : (currentPage + 2 <= tours.getTotalPages() ? currentPage - 2 : tours.getTotalPages() - 4) }">
+                                        <th:block th:with="to=${from + 4 <= tours.getTotalPages() ? from + 4 :  tours.getTotalPages()}">
+                                            <th:block th:each="i: ${#numbers.sequence(from, to)}">
+                                                <li th:class="${#strings.equals(#strings.toString(i), currentPage) ? 'active': ''}">
+                                                    <a th:class="${'page page-' + i}" th:href="@{/tour(page=${i})}"
+                                                       th:text="${i}" th:value="${i}">2</a>
+                                                </li>
+                                            </th:block>
+                                        </th:block>
+                                    </th:block>
+
+
+                                    <li th:if="${currentPage < tours.getTotalPages()}" th:value="${currentPage + 1}">
+                                        <a href="#" class="page" th:value="${currentPage + 1}"> <span aria-hidden="true"><i
+                                                class="fa fa-angle-right"
+                                                aria-hidden="true"></i></span>
+                                        </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- =======================
+        newsletter -->
+    <section class="bg-light pattern-overlay-1-dark">
+        <div class="container">
+            <div class="col-md-12 col-lg-9 mx-auto p-4 p-sm-5">
+                <div class="text-center px-0 px-sm-5">
+                    <p class="mb-3 lead">21,215+ Hotel and Resorts Available!</p>
+                    <form>
+                        <div class="input-group px-0 px-md-5">
+                            <input class="form-control border-radius-right-0 border-right-0 bg-transparent" type="text"
+                                   name="search" placeholder="Enter destination">
+                            <button type="button" class="btn btn-grad mb-0 border-radius-left-0"><span
+                                    class=" d-md-block">Search now</span> <span class="d-md-none"><i
+                                    class="fab fa-paper-plane-o m-0"></i></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

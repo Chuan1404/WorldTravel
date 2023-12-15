@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
+<section class="bg-light pattern-overlay-1-dark">
+    <div class="container">
+        <div class="col-12 mx-auto">
+            <div class="text-center px-0 px-sm-5">
+                <p class="mb-3 lead">Đặt tour theo yêu cầu khách hàng</p>
+            </div>
+        </div>
+
+        <form class="px-5" id="booking-custom-form">
+            <div class="row">
+                <div class="col-6">
+                    <label class="form-label" th:text="#{form.name.label}">Name</label>
+                    <input class="form-control my-2" type="text"
+                           name="name" th:placeholder="#{form.name.holder}">
+                </div>
+
+                <div class="col-6 my-2">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" type="text"
+                           name="email" th:placeholder="#{form.email.holder}">
+                </div>
+
+                <div class="col-6 my-2">
+                    <label class="form-label" th:text="#{form.phone.label}"></label>
+                    <input class="form-control" type="text"
+                           name="phone" th:placeholder="#{form.phone.holder}">
+                </div>
+
+                <div class="col-6 my-2">
+                    <label class="form-label" th:text="#{form.address.label}"></label>
+                    <input class="form-control" type="text"
+                           name="address" th:placeholder="#{form.address.holder}">
+                </div>
+
+                <div class="col-6 my-2">
+                    <label class="form-label" th:text="#{form.departureDate.label}">Ngày khởi hành dự kiến</label>
+                    <input class="form-control" type="date"
+                           name="departureDate">
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label" th:text="#{form.number.label}">NHẬP SỐ LƯỢNG</label>
+                </div>
+
+                <div class="col-4 my-2">
+                    <label class="form-label" th:text="#{common.adults}">Người lớn</label>
+                    <input class="form-control" type="number"
+                           name="adultNumber" th:placeholder="#{form.number.holder}">
+                </div>
+
+                <div class="col-4 my-2">
+                    <label class="form-label" th:text="#{common.children}">Trẻ em</label>
+                    <input class="form-control" type="number"
+                           name="childNumber" th:placeholder="#{form.number.holder}">
+                </div>
+
+                <div class="col-4 my-2">
+                    <label class="form-label" th:text="#{common.babies}">Em bé</label>
+                    <input class="form-control" type="number"
+                           name="babyNumber" th:placeholder="#{form.number.holder}">
+                </div>
+
+                <div class="col-12 my-2">
+                    <label class="form-label" th:text="#{form.description.label}">Mô tả</label>
+                    <textarea class="form-control" type="text"
+                              name="description" th:placeholder="#{form.description.holder}"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button id="booking-custom-btn" type="button"
+                            class="btn btn-grad mb-0 mt-2 border-radius-left-0"><span class=" d-md-block"
+                                                                                      th:text="#{form.submit.label}">Search now</span>
+                        <span class="d-md-none"><i class="fab fa-paper-plane-o m-0"></i></span></button>
+                    <p class="text-center" style="display: none" id="booking-custom-loading">...Loading</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script th:inline="javascript">
+    let form1 = document.querySelector("#booking-custom-form")
+    let btn1 = document.querySelector("#booking-custom-btn")
+    let loading1 = document.querySelector('#booking-custom-loading')
+
+    btn1.onclick = async function (e) {
+        e.preventDefault()
+        e.target.style.display = "none"
+        loading1.style.display = "block"
+        let data = Object.fromEntries(new FormData(form1).entries())
+        data.tourId = null
+
+        let response = await fetch(`${HOST}/order/tour`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+
+        if (response.error) {
+            e.target.style.display = "block"
+            loading1.style.display = "none"
+            return alert(response.error)
+        }
+
+        window.location = '/thank'
+    }
+</script>
+
+</html>

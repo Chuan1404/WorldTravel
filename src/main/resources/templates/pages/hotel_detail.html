@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+
+<div layout:fragment="content">
+    <section>
+        <!-- Slider main container-->
+        <div class="swiper-container detail-slider slider-gallery">
+            <!-- Additional required wrapper-->
+            <div class="swiper-wrapper">
+                <div class="col-lg-4 col-md-6 col-sm-12 swiper-slide" style="height: 317px" th:each="slide : ${hotel.gallery}"><a data-toggle="gallery-top" title="Our street"><img th:src="${slide.link}" alt="Our street" class="img-fluid"></a></div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+            <div class="swiper-button-next swiper-button-white"></div>
+        </div>
+    </section>
+    <section class="pt80 pb80 booking-section login-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="listing-item ">
+                        <article class="TravelGo-category-listing fl-wrap">
+                            <div class="TravelGo-category-img">
+                                <img th:src="${hotel.image}" alt="">
+                                <div class="TravelGo-category-opt">
+                                    <div class="listing-rating card-popup-rainingvis mb-4" data-starrating2="5">
+                                        <i class="fa fa-star" aria-hidden="true"
+                                           th:each="star : ${#numbers.sequence(1, hotel.starRate)}"></i><i
+                                            th:if="${5 - hotel.starRate > 0}"
+                                            class="far fa-star" aria-hidden="true"
+                                            th:each="star : ${#numbers.sequence(1, 5 - hotel.starRate)}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="TravelGo-category-content fl-wrap title-sin_item">
+                                <div class="TravelGo-category-content-title fl-wrap">
+                                    <div class="TravelGo-category-content-title-item">
+                                        <h3 class="title-sin_map" th:text="${hotel.name}">Asia & African Cruise</h3>
+                                        <div class="TravelGo-category-location fl-wrap">
+                                            <a class="map-item">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <p style="display: inline"
+                                                   th:text="${hotel.addressDetail}">27th Brooklyn New York,
+                                                    USA
+                                                </p>
+                                            </a>
+                                            <span th:text="${#numbers.formatDecimal(hotel.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">$ 200</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p th:text="${hotel.description}">Sed interdum metus at nisi tempor laoreet. Integer gravida orci a justo sodales.</p>
+
+                            </div>
+                        </article>
+                    </div>
+                    <div class="listing-item">
+                        <article class="TravelGo-category-listing fl-wrap">
+                            <div class="TravelGo-category-content fl-wrap title-sin_item">
+                                <div class="TravelGo-category-content-title fl-wrap NeedHelp">
+                                    <div class="TravelGo-category-content-title-item">
+                                        <h3 class="title-sin_map"><a href="hotel-detailed.html">Need Help?</a></h3>
+                                        <div class="TravelGo-category-location fl-wrap"></div>
+                                    </div>
+                                </div>
+                                <div class="NeedhelpSection">
+                                    <P>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</P>
+                                    <ul>
+                                        <li><span><i class="fas fa-phone-volume"></i></span> +921 215 2154 214</li>
+                                        <li><span><i class="far fa-envelope"></i></span> Info@travelGo.com</li>
+                                        <li><span><i class="fab fa-skype"></i> </span> TravelG@Skype</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="login-box Booking-box">
+                                <div class="login-top">
+                                    <h3>Your Personal Information</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                </div>
+                                <form class="login-form" id="booking-form" action="#">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 email">
+                                            <label>First Name</label>
+                                            <input type="text" name="name" placeholder="First Name">
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 email">
+                                            <label>Email</label>
+                                            <input type="text" name="email" placeholder="Enter your email here">
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 password">
+                                            <label>Phone Number</label>
+                                            <input type="text" name="phone" placeholder="Enter Phone Number">
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 email">
+                                            <label>Home Address</label>
+                                            <input type="text" name="address" placeholder="Home Address">
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <button id="booking-form-btn" class="Confirm" type="submit" name="button">Confirm Booking</button>
+                                            <p id="booking-form-loading" style="display: none" class="text-center">...Loading</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<div layout:fragment="scripts" th:remove="tag">
+    <script src="/js/isotope.pkgd.min.js" type="text/javascript"></script>
+    <script src="/js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+    <script src="/js/markerclusterer.js"></script>
+
+    <script th:inline="javascript">
+        let form = document.querySelector("#booking-form")
+        let btn = document.querySelector("#booking-form-btn")
+        let loading = document.querySelector('#booking-form-loading')
+        btn.onclick = async function (e) {
+            e.preventDefault()
+            e.target.style.display = "none"
+            loading.style.display = "block"
+            let data = Object.fromEntries(new FormData(form).entries())
+            data.hotelId = [[${hotel.id}]]
+
+            let response = await fetch(`${HOST}/order/hotel`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+
+            if(response.error) {
+                e.target.style.display = "block"
+                loading.style.display = "none"
+                return alert(response.error)
+            }
+
+            window.location = '/thank'
+        }
+    </script>
+</div>
+
+</body>
+</html>

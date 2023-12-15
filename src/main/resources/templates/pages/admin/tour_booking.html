@@ -1,0 +1,96 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout_admin}">
+
+<div layout:fragment="content" class="page-wrapper">
+    <div th:replace="fragments/admin/nav"></div>
+
+    <div class="container-fluid py-4">
+
+        <div class="row">
+            <div class="col-12">
+                <a th:href="@{/admin/booking(type='tour')}" class="text-white">
+                    <button class="btn btn-primary" type="button">Tour</button>
+                </a>
+
+                <a th:href="@{/admin/booking(type='hotel')}" class="text-white">
+                    <button class="btn btn-light" type="button">Hotel</button>
+                </a>
+            </div>
+            <div class="col-12">
+                <div class="card my-4 ml-auto">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Danh sách Tour Booking</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Thông tin khách hàng
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Ngày khởi hành
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Mô tả Tour
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Số người
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Tình trạng
+                                    </th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="booking : ${tourBookings}">
+                                    <td>
+                                                <h6 class="mb-0 text-sm" th:text="${booking.name}">Tham quan Đà Lạt</h6>
+                                                <span th:text="${booking.phone}"></span>
+                                        <br>
+                                                <span th:text="${booking.email}"></span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold"
+                                              th:text="${booking.departureDate.getDay() + '-' + (booking.departureDate.getMonth() + 1) + '-' + booking.departureDate.getYear()}">Ngày</span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">
+                      <a th:href="@{/tour/{id}(id=${booking.tour.id})}" th:if="${booking.tour}"
+                         th:text="${booking.tour.name}">test</a></span>
+                                        <span th:if="${booking.description}"
+                                              th:text="${booking.description}">test</span>
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span th:text="${'Số người lớn: ' + booking.adultNumber}"></span>
+                                        <br>
+                                        <span th:text="${'Số trẻ em: ' + booking.childNumber}"></span>
+                                        <br>
+                                        <span th:text="${'Số em bé: ' + booking.babyNumber}"></span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span th:text="${booking.state.name()}"></span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <form method="post">
+                                            <button type="submit" class="btn">Xử lý</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

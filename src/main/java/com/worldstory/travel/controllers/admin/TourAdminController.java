@@ -3,6 +3,7 @@ package com.worldstory.travel.controllers.admin;
 import com.worldstory.travel.models.Address;
 import com.worldstory.travel.models.Tour;
 import com.worldstory.travel.services.AmazonS3Service;
+import com.worldstory.travel.services.TourBookingService;
 import com.worldstory.travel.services.TourService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -16,36 +17,38 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
-@Controller
-@RequestMapping("/admin/tour")
+
 public class TourAdminController {
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private TourBookingService tourBookingService;
 
     @Autowired
     private AmazonS3Service amazonS3Service;
 
     @GetMapping("")
     public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("tours", tourService.findAll(params));
+        model.addAttribute("tours", tourService.findAll(params, false));
         return "pages/admin/tour";
     }
 
     @GetMapping("/add")
     public String addTour(Model model, @ModelAttribute(value = "tour") Tour tour) {
-        if(tour.getAddresses() == null)
-            tour.setAddresses(List.of(new Address()));
+        if(tour.getDestinations() == null)
+            tour.setDestinations(List.of(new Address()));
+        if(tour.getDeparture() == null)
+            tour.setDeparture(new Address());
         model.addAttribute("tour", tour);
         return "pages/admin/tour_add";
     }
 
     @PostMapping("/add")
-    @Transactional
     public String handleAddTour(Model model, @RequestParam(name = "file") MultipartFile file, @ModelAttribute(value = "tour") @Valid Tour tour, BindingResult bindingResult) {
-        System.out.println(tour.getAddresses());
-
         if(file.isEmpty() && tour.getImage().isEmpty())
             bindingResult.rejectValue("image", "form.error.empty");
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("tour", tour);
             return "pages/admin/tour_add";
@@ -53,7 +56,6 @@ public class TourAdminController {
 
         if(!file.isEmpty()) {
             if(!tour.getImage().isEmpty()) amazonS3Service.deleteFile(tour.getImage().split(".com/")[1]);
-            amazonS3Service.uploadFile(file);
             tour.setImage(amazonS3Service.uploadFile(file));
         }
 
@@ -64,7 +66,7 @@ public class TourAdminController {
     @PostMapping("/add-address")
     public String addAddress(RedirectAttributes redirectAttributes, @ModelAttribute(value = "tour") Tour tour) {
 
-        tour.getAddresses().add(new Address());
+        tour.getDestinations().add(new Address());
         redirectAttributes.addFlashAttribute("tour", tour);
         return "redirect:/admin/tour/add";
     }
@@ -80,8 +82,12 @@ public class TourAdminController {
     @PostMapping("/delete/{id}")
     public String deleteTour(@PathVariable(value = "id") String id) {
         Tour tour = tourService.findById(id);
+
+        tourBookingService.deleteAll(tourBookingService.findByTourId(tour.getId()));
         tourService.delete(tour);
 
         return "redirect:/admin/tour";
     }
+
+
 }

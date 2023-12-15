@@ -13,9 +13,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -42,20 +43,22 @@ public class User implements UserDetails {
     private String password;
 
     @Transient
-    @NotEmpty(message = "{form.error.empty}")
-    @NotNull
     public String confirm;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDay;
     private String phone;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime updatedDate;
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
