@@ -98,5 +98,19 @@ public class AuthController {
         return "pages/sign-in";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest httpServletRequest) {
+        try {
+            HttpSession session = httpServletRequest.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
 
+            SecurityContextHolder.clearContext();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/";
+    }
 }

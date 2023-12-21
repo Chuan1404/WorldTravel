@@ -61,7 +61,7 @@
                                th:href="@{/auth/register}">Register</a>
                             <a class="dropdown-item"
                                th:if="${#authorization?.expression('isAuthenticated()')}"
-                               th:href="@{/auth/register}">Log out</a>
+                               th:href="@{/auth/logout}">Log out</a>
                         </div>
 
 
