@@ -68,13 +68,13 @@
                                     <li class="list-inline-item">
                                         <div class="custom-control custom-switch">
                                             <input id="instantBook" type="checkbox" class="custom-control-input" name="domestic" value="1" th:checked="${param.domestic}">
-                                            <label for="instantBook" class="custom-control-label"> <span class="text-sm" th:text="#{common.domestic}">Trong nước</span></label>
+                                            <label for="instantBook" class="custom-control-label"> <span class="text-sm" style="display: block" th:text="#{common.domestic}">Trong nước</span></label>
                                         </div>
                                     </li>
                                     <li class="list-inline-item">
                                         <div class="custom-control custom-switch">
                                             <input id="superhost" type="checkbox" class="custom-control-input" name="foreign" value="1" th:checked="${param.foreign}">
-                                            <label for="superhost" class="custom-control-label"> <span class="text-sm" th:text="#{common.foreign}">Ngoài nước</span></label>
+                                            <label for="superhost" class="custom-control-label"> <span class="text-sm" style="display: block" th:text="#{common.foreign}">Ngoài nước</span></label>
                                         </div>
                                     </li>
                                 </ul>

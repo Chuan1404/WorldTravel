@@ -10404,3 +10404,24 @@ h6.subtitle {
 h2.title {
 	font-size:24px !important;
 }
+
+.grid-custom {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-rows: 250px 250px;
+	grid-gap: 10px;
+	height: 500px;
+}
+
+	@media (max-width: 991.98px) {
+		.grid-custom {
+			display: block;
+			height: auto;
+		}
+		.grid-custom .grid-custom-item {
+			margin-bottom: 10px;
+		}
+		.grid-custom .grid-custom-item img{
+			max-height: 20rem;
+		}
+	}
