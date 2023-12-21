@@ -58,6 +58,15 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
+    public User findByEmailAndPassword(String email, String password) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if(user != null && user.getPassword().equals(encoder.encode(password)))
+            return user;
+
+        return null;
+    }
+
     public User saveOrUpdate(User user) {
         if(user.getId() == null || user.getId().isEmpty()) {
             user.setIsActive(true);

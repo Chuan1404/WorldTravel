@@ -5,9 +5,13 @@ import com.worldstory.travel.models.Role;
 import com.worldstory.travel.services.RoleService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @ControllerAdvice
@@ -34,4 +38,5 @@ public class GlobalController {
 
     @ModelAttribute("CUSTOMER")
     public Role getRoleCustomer() {return roleService.findByName(UserRole.CUSTOMER); }
+
 }

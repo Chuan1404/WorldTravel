@@ -31,6 +31,7 @@ public class UserAdminController {
     @GetMapping("")
     public String index(@RequestParam Map<String, String> params, Model model) {
         Page<User> users = userService.findAll(params, false);
+        System.out.println(users);
         model.addAttribute("users", users);
         return "pages/admin/user";
     }

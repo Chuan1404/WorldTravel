@@ -52,7 +52,7 @@ public class Tour {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime updatedDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private TourDetail tourDetail;
 
     @OneToMany

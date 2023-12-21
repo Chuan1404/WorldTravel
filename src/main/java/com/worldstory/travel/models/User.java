@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "app_user")
 @Data
 @Builder
 @AllArgsConstructor

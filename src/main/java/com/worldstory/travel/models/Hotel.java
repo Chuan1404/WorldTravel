@@ -26,7 +26,7 @@ public class Hotel {
     @NotEmpty
     private String name;
 
-    @Column(columnDefinition = "longtext")
+    @Column(columnDefinition = "text")
     private String description;
 
     @Min(value = 0)

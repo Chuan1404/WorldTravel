@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 public class TourSpecification extends ModelSpecification<Tour> {
 
     public Specification<Tour> findByArea(String country) {
-        return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("departure").get("country"), country));
+
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("destinations").get("country"), country));
     }
 
 }

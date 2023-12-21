@@ -25,11 +25,11 @@
                                 class="dropdown-item-text" th:text="#{nav.select}">Select language</span>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="?lang=vi"><img class="dropdown-item-icon"
-                                                                          src="/client_src/images/flag/vn.svg"
+                                                                          src="/images/flag/vn.svg"
                                                                           alt=""> <span
                                     th:text="#{nav.select.vi}"></span></a>
                             <a class="dropdown-item" href="?lang=en"><img class="dropdown-item-icon"
-                                                                          src="/client_src/images/flag/uk.svg"
+                                                                          src="/images/flag/uk.svg"
                                                                           alt=""> <span
                                     th:text="#{nav.select.en}"></span></a>
                         </div>
@@ -89,7 +89,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <!-- Logo -->
-            <a class="navbar-brand" href="/"> <img src="/client_src/images/logo-header.png" alt="travelgo">
+            <a class="navbar-brand" href="/"> <img src="/images/logo-header.png" alt="travelgo">
             </a>
             <!-- Menu opener button -->
             <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -101,28 +101,20 @@
                     <!-- Menu item 1 Demos-->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/hotel}" style="white-space: nowrap"
-                                            th:text="#{nav.hotel}">Hotels</a>
+                           th:text="#{nav.hotel}">Hotels</a>
 
                     </li>
                     <li class="nav-item"><a class="nav-link" th:href="@{'/tour?domestic=1'}"
-                                                     th:text="#{nav.domestic}"></a>
+                                            th:text="#{nav.domestic}"></a>
                     </li>
                     <li class="nav-item"><a class="nav-link" th:href="@{'/tour?foreign=1'}"
-                                                     th:text="#{nav.international}">Tour</a>
+                                            th:text="#{nav.international}">Tour</a>
                     </li>
 
 
                 </ul>
             </div>
-            <!-- Main Menu End -->
-            <!-- Header Extras Start-->
-            <div class="navbar-nav">
-                <!-- extra item Btn-->
-                <div class="nav-item ml-2 border-0 d-none d-lg-inline-block align-self-center"><a href="#"
-                                                                                             class=" btn btn-sm btn-grad text-white mb-0">Online
-                    Booking</a></div>
-            </div>
-            <!-- Header Extras End-->
+
         </div>
     </nav>
     <!-- Logo Nav End -->

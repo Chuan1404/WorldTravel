@@ -18,9 +18,9 @@ public class TourDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "longtext")
+    @Column(columnDefinition = "text")
     private String description;
 
-    @Column(columnDefinition = "longtext")
+    @Column(columnDefinition = "text")
     private String schedule;
 }
