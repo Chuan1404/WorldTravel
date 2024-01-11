@@ -55,13 +55,16 @@
                         <div class="dropdown-menu mt-2 shadow" aria-labelledby="dropdownAccount">
                             <a
                                     th:unless="${#authorization?.expression('isAuthenticated()')}" class="dropdown-item"
-                                    th:href="@{/auth/login}">Log In</a>
+                                    th:href="@{/auth/login}"
+                                    th:text="#{form.login}">Log In</a>
                             <a class="dropdown-item"
                                th:unless="${#authorization?.expression('isAuthenticated()')}"
-                               th:href="@{/auth/register}">Register</a>
+                               th:href="@{/auth/register}"
+                               th:text="#{form.register}">Register</a>
                             <a class="dropdown-item"
                                th:if="${#authorization?.expression('isAuthenticated()')}"
-                               th:href="@{/auth/logout}">Log out</a>
+                               th:href="@{/auth/logout}"
+                               th:text="#{form.logout}">Log out</a>
                         </div>
 
 

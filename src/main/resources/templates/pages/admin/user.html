@@ -9,14 +9,14 @@
     <div class="row">
       <div class="col-12 d-flex">
         <a th:href="@{/admin/user(role='CUSTOMER')}" class="text-white">
-          <button class="btn btn-primary" type="button">Customer</button>
+          <button th:class="${#strings.equals(param.role, 'CUSTOMER') or #strings.isEmpty(param.role)? 'btn btn-primary':'btn btn-light'}" type="button">Customer</button>
         </a>
 
         <a th:href="@{/admin/user(role='ADVISOR')}" class="text-white">
-          <button class="btn btn-light" type="button">Advisor</button>
+          <button th:class="${#strings.equals(param.role, 'ADVISOR')? 'btn btn-primary':'btn btn-light'}" type="button">Advisor</button>
         </a>
         <a th:href="@{/admin/user(role='ADMIN')}" class="text-white">
-          <button class="btn btn-light" type="button">Admin</button>
+          <button th:class="${#strings.equals(param.role, 'ADMIN')? 'btn btn-primary':'btn btn-light'}" type="button">Admin</button>
         </a>
         <a th:href="@{/admin/user/add}" class="text-white ml-auto">
           <button class="btn btn-primary" type="button">Thêm người dùng</button>

@@ -32,8 +32,10 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Thông tin khách hàng
                                     </th>
-
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Khách sạn
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Tình trạng
                                     </th>
                                     <th class="text-secondary opacity-7"></th>
@@ -47,12 +49,17 @@
                                         <br>
                                         <span th:text="${booking.email}"></span>
                                     </td>
+                                    <td class="align-middle text-sm">
+                                        <a th:href="@{/hotel/{id}(id=${booking.hotel.id})}">
+                                            <span th:text="${booking.hotel.name}"></span>
+                                        </a>
+                                    </td>
                                     <td class="align-middle text-center text-sm">
-                                        <!--                    <span th:text="${booking.state.name()}"></span>-->
+                                        <span th:text="${booking.state.name()}"></span>
                                     </td>
                                     <td class="align-middle">
                                         <form method="post">
-                                            <button type="submit" class="btn">Xử lý</button>
+                                            <button type="submit" class="btn">Đã xử lý</button>
                                         </form>
                                     </td>
                                 </tr>

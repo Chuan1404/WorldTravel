@@ -80,6 +80,7 @@ public class OrderAPIController {
             hotelBooking.setPhone(map.get("phone"));
             hotelBooking.setEmail(map.get("email"));
             hotelBooking.setAddress(map.get("address"));
+            hotelBooking.setState(BookingState.UN_PROCESS);
             hotelBooking.setCreatedDate(LocalDateTime.now());
 
             hotelBooking.setHotel(hotel);

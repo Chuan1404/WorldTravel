@@ -33,7 +33,7 @@
                                         Thông tin khách hàng
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Ngày khởi hành
+                                        Ngày khởi hành dự tính
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Mô tả Tour
@@ -60,9 +60,9 @@
                                               th:text="${booking.departureDate.getDay() + '-' + (booking.departureDate.getMonth() + 1) + '-' + booking.departureDate.getYear()}">Ngày</span>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">
-                      <a th:href="@{/tour/{id}(id=${booking.tour.id})}" th:if="${booking.tour}"
-                         th:text="${booking.tour.name}">test</a></span>
+                                        <span class="text-secondary text-xs font-weight-bold">
+                                        <a th:href="@{/tour/{id}(id=${booking.tour.id})}" th:if="${booking.tour}"
+                                         th:text="${booking.tour.name}">test</a></span>
                                         <span th:if="${booking.description}"
                                               th:text="${booking.description}">test</span>
                                         </span>
@@ -79,7 +79,7 @@
                                     </td>
                                     <td class="align-middle">
                                         <form method="post">
-                                            <button type="submit" class="btn">Xử lý</button>
+                                            <button type="submit" class="btn">Đã xử lý</button>
                                         </form>
                                     </td>
                                 </tr>

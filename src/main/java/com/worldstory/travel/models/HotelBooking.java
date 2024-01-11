@@ -1,5 +1,6 @@
 package com.worldstory.travel.models;
 
+import com.worldstory.travel.enums.BookingState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,9 @@ public class HotelBooking {
     private String address;
 
     private LocalDateTime createdDate;
+
+    @Enumerated(EnumType.STRING)
+    private BookingState state;
 
     @ManyToOne
     private Hotel hotel;
